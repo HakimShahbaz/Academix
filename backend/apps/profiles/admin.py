@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import StudentProfile
+from .models import StudentProfile, TeacherProfile
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):
@@ -14,3 +14,17 @@ class StudentProfileAdmin(admin.ModelAdmin):
         "user__last_name",
     )
     ordering = ("student_number",)
+
+@admin.register(TeacherProfile)
+class TeacherProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "teacher_number",
+        "user",
+        "hire_date")
+    search_fields = (
+        "teacher_number",
+        "user__username",
+        "user__first_name",
+        "user__last_name",
+    )
+    ordering = ("teacher_number",)
