@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from apps.profiles.models import StudentProfile
@@ -21,4 +21,9 @@ class StudentUpdateView(LoginRequiredMixin,UpdateView):
     model = StudentProfile
     form_class = StudentUpdateForm
     template_name = "profiles/student/update.html"
+    success_url = reverse_lazy("profiles:student_list")
+
+class StudentDeleteView(LoginRequiredMixin,DeleteView):
+    model = StudentProfile
+    template_name = "profiles/student/delete.html"
     success_url = reverse_lazy("profiles:student_list")

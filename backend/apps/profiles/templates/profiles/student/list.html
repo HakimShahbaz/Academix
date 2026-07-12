@@ -6,23 +6,72 @@ Students
 
 {% block content %}
 
-<h2>Students</h2>
+<div class="container mt-4">
 
-<ul>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-{% for student in students %}
+        <h2>Students</h2>
 
-    <li>
-        {{ student.student_number }} -
-        {{ student.user.username }}
-    </li>
+        <a href="{% url 'profiles:student_create' %}" class="btn btn-primary">
+            Create Student
+        </a>
 
-{% empty %}
+    </div>
 
-    <li>No students found.</li>
+    {% if students %}
 
-{% endfor %}
+        <table class="table table-striped table-bordered">
 
-</ul>
+            <thead>
+
+                <tr>
+                    <th>Student Number</th>
+                    <th>Username</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for student in students %}
+
+                <tr>
+
+                    <td>{{ student.student_number }}</td>
+
+                    <td>{{ student.user.username }}</td>
+
+                    <td>
+
+                        <a
+                            href="{% url 'profiles:student_update' student.pk %}"
+                            class="btn btn-sm btn-warning">
+                            Edit
+                        </a>
+
+                        <a
+                            href="{% url 'profiles:student_delete' student.pk %}"
+                            class="btn btn-sm btn-danger">
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <div class="alert alert-info">
+            No students found.
+        </div>
+
+    {% endif %}
 
 {% endblock %}
