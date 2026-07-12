@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (
-    StudentListView, StudentCreateView, StudentUpdateView
+    StudentListView, StudentCreateView, StudentUpdateView,
+    StudentDetailView, StudentDeleteView
 )
-from .views.student import StudentDeleteView
 
 app_name = "profiles"
 
@@ -26,5 +26,10 @@ urlpatterns = [
         "students/<int:pk>/delete/",
         StudentDeleteView.as_view(),
         name="student_delete",
+    ),
+    path(
+        "students/<int:pk>/",
+        StudentDetailView.as_view(),
+        name="student_detail",
     )
 ]

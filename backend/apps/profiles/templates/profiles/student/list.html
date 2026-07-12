@@ -38,7 +38,9 @@ Students
 
                 <tr>
 
-                    <td>{{ student.student_number }}</td>
+                    <td><a href="{% url 'profiles:student_detail' student.pk %}">
+                                {{ student.student_number }}
+                    </a></td>
 
                     <td>{{ student.user.username }}</td>
 
