@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import StudentListView, StudentCreateView
+from .views import StudentListView, StudentCreateView, StudentUpdateView
 
 app_name = "profiles"
 
@@ -13,5 +13,10 @@ urlpatterns = [
         "students/create/",
         StudentCreateView.as_view(),
         name="student_create",
+    ),
+    path(
+        "students/<int:pk>/edit/",
+        StudentUpdateView.as_view(),
+        name="student_update",
     )
 ]
