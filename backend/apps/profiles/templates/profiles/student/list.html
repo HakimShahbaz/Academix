@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Students
+{% endblock %}
+
+{% block content %}
+
+<h2>Students</h2>
+
+<ul>
+
+{% for student in students %}
+
+    <li>
+        {{ student.student_number }} -
+        {{ student.user.username }}
+    </li>
+
+{% empty %}
+
+    <li>No students found.</li>
+
+{% endfor %}
+
+</ul>
+
+{% endblock %}
