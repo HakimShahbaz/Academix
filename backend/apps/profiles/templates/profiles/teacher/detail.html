@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teacher Details
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Teacher Details</h2>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Teacher Number</th>
+            <td>{{ teacher.teacher_number }}</td>
+        </tr>
+
+        <tr>
+            <th>Username</th>
+            <td>{{ teacher.user.username }}</td>
+        </tr>
+
+        <tr>
+            <th>Hire Date</th>
+            <td>{{ teacher.hire_date }}</td>
+        </tr>
+
+    </table>
+
+    <a href="{% url 'profiles:teacher_update' teacher.pk %}" class="btn btn-warning">
+        Edit
+    </a>
+
+    <a href="{% url 'profiles:teacher_delete' teacher.pk %}" class="btn btn-danger">
+        Delete
+    </a>
+
+    <a href="{% url 'profiles:teacher_list' %}" class="btn btn-secondary">
+        Back
+    </a>
+
+</div>
+
+{% endblock %}

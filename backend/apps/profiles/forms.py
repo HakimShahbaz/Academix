@@ -1,6 +1,7 @@
 from django import forms
 
 from apps.profiles.models import StudentProfile
+from apps.profiles.models import TeacherProfile
 
 class StudentCreateForm(forms.ModelForm):
     class Meta:
@@ -20,4 +21,23 @@ class StudentUpdateForm(forms.ModelForm):
             "user",
             "student_number",
             "initial_enrollment_date",
+        ]
+
+class TeacherCreateForm(forms.ModelForm):
+    class Meta:
+        model = TeacherProfile
+
+        fields = [
+            "user",
+            "teacher_number",
+            "hire_date",
+        ]
+
+class TeacherUpdateForm(forms.ModelForm):
+    class Meta:
+        model = TeacherProfile
+        fields = [
+            "user",
+            "teacher_number",
+            "hire_date",
         ]

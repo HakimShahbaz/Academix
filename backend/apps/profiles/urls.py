@@ -3,6 +3,10 @@ from .views import (
     StudentListView, StudentCreateView, StudentUpdateView,
     StudentDetailView, StudentDeleteView
 )
+from .views import (
+    TeacherListView, TeacherDeleteView, TeacherCreateView,
+    TeacherUpdateView, TeacherDetailView
+)
 
 app_name = "profiles"
 
@@ -31,5 +35,31 @@ urlpatterns = [
         "students/<int:pk>/",
         StudentDetailView.as_view(),
         name="student_detail",
-    )
+    ),
+
+    path(
+        "teachers/",
+        TeacherListView.as_view(),
+        name="teacher_list",
+    ),
+    path(
+        "teachers/create/",
+        TeacherCreateView.as_view(),
+        name="teacher_create",
+    ),
+    path(
+        "teachers/<int:pk>/edit/",
+        TeacherUpdateView.as_view(),
+        name="teacher_update",
+    ),
+    path(
+        "teachers/<int:pk>/delete/",
+        TeacherDeleteView.as_view(),
+        name="teacher_delete",
+    ),
+    path(
+        "teachers/<int:pk>/",
+        TeacherDetailView.as_view(),
+        name="teacher_detail",
+    ),
 ]

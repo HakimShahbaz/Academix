@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teachers
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>Teachers</h2>
+
+        <a href="{% url 'profiles:teacher_create' %}" class="btn btn-primary">
+            Create Teacher
+        </a>
+
+    </div>
+
+    {% if teachers %}
+
+        <table class="table table-striped table-bordered">
+
+            <thead>
+
+                <tr>
+                    <th>Teacher Number</th>
+                    <th>Username</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for teacher in teachers %}
+
+                <tr>
+
+                    <td>
+                        <a href="{% url 'profiles:teacher_detail' teacher.pk %}">
+                            {{ teacher.teacher_number }}
+                        </a>
+                    </td>
+
+                    <td>{{ teacher.user.username }}</td>
+
+                    <td>
+
+                        <a
+                            href="{% url 'profiles:teacher_update' teacher.pk %}"
+                            class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <a
+                            href="{% url 'profiles:teacher_delete' teacher.pk %}"
+                            class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <div class="alert alert-info">
+
+            No teachers found.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
