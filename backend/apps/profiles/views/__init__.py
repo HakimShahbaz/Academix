@@ -8,6 +8,11 @@ from .teacher import (
     TeacherDetailView, TeacherUpdateView
 )
 
+from .employee import (
+    EmployeeListView, EmployeeCreateView, EmployeeDeleteView,
+    EmployeeUpdateView, EmployeeDetailView
+)
+
 __all__ = [
     "StudentListView",
     "StudentCreateView",
@@ -19,5 +24,11 @@ __all__ = [
     "TeacherCreateView",
     "TeacherUpdateView",
     "TeacherDetailView",
-    "TeacherDeleteView"
+    "TeacherDeleteView",
+
+    "EmployeeListView",
+    "EmployeeCreateView",
+    "EmployeeUpdateView",
+    "EmployeeDetailView",
+    "EmployeeDeleteView",
 ]

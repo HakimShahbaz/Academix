@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+Employee Details
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Employee Details</h2>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Employee Number</th>
+            <td>{{ employee.employee_number }}</td>
+        </tr>
+
+        <tr>
+            <th>Username</th>
+            <td>{{ employee.user.username }}</td>
+        </tr>
+
+        <tr>
+            <th>Hire Date</th>
+            <td>{{ employee.hire_date }}</td>
+        </tr>
+
+    </table>
+
+    <a href="{% url 'profiles:employee_update' employee.pk %}"
+       class="btn btn-warning">
+        Edit
+    </a>
+
+    <a href="{% url 'profiles:employee_delete' employee.pk %}"
+       class="btn btn-danger">
+        Delete
+    </a>
+
+    <a href="{% url 'profiles:employee_list' %}"
+       class="btn btn-secondary">
+        Back
+    </a>
+
+</div>
+
+{% endblock %}
