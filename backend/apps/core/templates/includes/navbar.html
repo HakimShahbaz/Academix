@@ -2,26 +2,113 @@
 
     <div class="container">
 
-        <a class="navbar-brand fw-bold" href="/">
+        <a class="navbar-brand" href="{% url 'core:dashboard' %}">
             Academix
         </a>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbar">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
-        <div class="collapse navbar-collapse" id="navbar">
+        <div class="collapse navbar-collapse" id="navbarNav">
 
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Dashboard</a>
+                    <a class="nav-link" href="{% url 'core:dashboard' %}">
+                        Dashboard
+                    </a>
                 </li>
+
+                <li class="nav-item dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        Profiles
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="{% url 'profiles:student_list' %}">
+                                Students
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="{% url 'profiles:teacher_list' %}">
+                                Teachers
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item"
+                               href="{% url 'profiles:employee_list' %}">
+                                Employees
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+            <ul class="navbar-nav">
+
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <span class="navbar-text me-3">
+                            {{ user.username }}
+                        </span>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <form method="post" action="{% url 'accounts:logout' %}">
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="btn btn-outline-light btn-sm">
+
+                                Logout
+
+                            </button>
+
+                        </form>
+
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm"
+                           href="{% url 'accounts:login' %}">
+                            Login
+                        </a>
+                    </li>
+
+                {% endif %}
 
             </ul>
 
