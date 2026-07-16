@@ -45,22 +45,25 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item"
-                               href="{% url 'profiles:student_list' %}">
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'profiles:student_list' %}">
                                 Students
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item"
-                               href="{% url 'profiles:teacher_list' %}">
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'profiles:teacher_list' %}">
                                 Teachers
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item"
-                               href="{% url 'profiles:employee_list' %}">
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'profiles:employee_list' %}">
                                 Employees
                             </a>
                         </li>
@@ -68,6 +71,7 @@
                     </ul>
 
                 </li>
+
                 <li class="nav-item dropdown">
 
                     <a
@@ -91,7 +95,16 @@
                             </a>
                         </li>
 
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'courses:section_list' %}">
+                                Sections
+                            </a>
+                        </li>
+
                     </ul>
+
                 </li>
 
             </ul>
@@ -127,10 +140,15 @@
                 {% else %}
 
                     <li class="nav-item">
-                        <a class="btn btn-outline-light btn-sm"
-                           href="{% url 'accounts:login' %}">
+
+                        <a
+                            class="btn btn-outline-light btn-sm"
+                            href="{% url 'accounts:login' %}">
+
                             Login
+
                         </a>
+
                     </li>
 
                 {% endif %}

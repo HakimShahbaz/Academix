@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sections
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>Sections</h2>
+
+        <a href="{% url 'courses:section_create' %}"
+           class="btn btn-primary">
+
+            Create Section
+
+        </a>
+
+    </div>
+
+    {% if sections %}
+
+    <table class="table table-striped table-bordered">
+
+        <thead>
+
+        <tr>
+
+            <th>Code</th>
+            <th>Course</th>
+            <th>Teacher</th>
+            <th>Capacity</th>
+            <th>Active</th>
+            <th>Actions</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for section in sections %}
+
+        <tr>
+
+            <td>
+
+                <a href="{% url 'courses:section_detail' section.pk %}">
+                    {{ section.code }}
+                </a>
+
+            </td>
+
+            <td>{{ section.course }}</td>
+
+            <td>{{ section.teacher }}</td>
+
+            <td>{{ section.capacity }}</td>
+
+            <td>
+
+                {% if section.is_active %}
+                    ✅
+                {% else %}
+                    ❌
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                <a href="{% url 'courses:section_update' section.pk %}"
+                   class="btn btn-warning btn-sm">
+
+                    Edit
+
+                </a>
+
+                <a href="{% url 'courses:section_delete' section.pk %}"
+                   class="btn btn-danger btn-sm">
+
+                    Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+        <div class="alert alert-info">
+
+            No sections found.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+Section Details
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Section Details</h2>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Code</th>
+            <td>{{ section.code }}</td>
+        </tr>
+
+        <tr>
+            <th>Course</th>
+            <td>{{ section.course }}</td>
+        </tr>
+
+        <tr>
+            <th>Teacher</th>
+            <td>{{ section.teacher }}</td>
+        </tr>
+
+        <tr>
+            <th>Capacity</th>
+            <td>{{ section.capacity }}</td>
+        </tr>
+
+        <tr>
+            <th>Start Date</th>
+            <td>{{ section.start_date }}</td>
+        </tr>
+
+        <tr>
+            <th>End Date</th>
+            <td>{{ section.end_date }}</td>
+        </tr>
+
+        <tr>
+            <th>Active</th>
+
+            <td>
+
+                {% if section.is_active %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <a href="{% url 'courses:section_update' section.pk %}"
+       class="btn btn-warning">
+
+        Edit
+
+    </a>
+
+    <a href="{% url 'courses:section_delete' section.pk %}"
+       class="btn btn-danger">
+
+        Delete
+
+    </a>
+
+    <a href="{% url 'courses:section_list' %}"
+       class="btn btn-secondary">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endblock %}

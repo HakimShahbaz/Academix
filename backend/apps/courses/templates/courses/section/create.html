@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Section
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Create Section</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="btn btn-primary">
+
+            Save
+
+        </button>
+
+        <a href="{% url 'courses:section_list' %}"
+           class="btn btn-secondary">
+
+            Cancel
+
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
