@@ -10,10 +10,7 @@
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+            data-bs-target="#navbarNav">
 
             <span class="navbar-toggler-icon"></span>
 
@@ -31,12 +28,9 @@
 
                 <li class="nav-item dropdown">
 
-                    <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       data-bs-toggle="dropdown">
 
                         Profiles
 
@@ -44,29 +38,11 @@
 
                     <ul class="dropdown-menu">
 
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{% url 'profiles:student_list' %}">
-                                Students
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item" href="{% url 'profiles:student_list' %}">Students</a></li>
 
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{% url 'profiles:teacher_list' %}">
-                                Teachers
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item" href="{% url 'profiles:teacher_list' %}">Teachers</a></li>
 
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{% url 'profiles:employee_list' %}">
-                                Employees
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item" href="{% url 'profiles:employee_list' %}">Employees</a></li>
 
                     </ul>
 
@@ -74,12 +50,9 @@
 
                 <li class="nav-item dropdown">
 
-                    <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       data-bs-toggle="dropdown">
 
                         Academics
 
@@ -87,31 +60,24 @@
 
                     <ul class="dropdown-menu">
 
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{% url 'courses:course_list' %}">
-                                Courses
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item" href="{% url 'courses:course_list' %}">Courses</a></li>
 
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{% url 'courses:section_list' %}">
-                                Sections
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item" href="{% url 'courses:section_list' %}">Sections</a></li>
 
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="{% url 'enrollments:enrollment_list' %}">
-                                Enrollments
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item" href="{% url 'enrollments:enrollment_list' %}">Enrollments</a></li>
 
                     </ul>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="{% url 'attendances:attendance_list' %}">
+
+                        Attendance
+
+                    </a>
 
                 </li>
 
@@ -122,9 +88,13 @@
                 {% if user.is_authenticated %}
 
                     <li class="nav-item">
+
                         <span class="navbar-text me-3">
+
                             {{ user.username }}
+
                         </span>
+
                     </li>
 
                     <li class="nav-item">
@@ -149,9 +119,8 @@
 
                     <li class="nav-item">
 
-                        <a
-                            class="btn btn-outline-light btn-sm"
-                            href="{% url 'accounts:login' %}">
+                        <a class="btn btn-outline-light btn-sm"
+                           href="{% url 'accounts:login' %}">
 
                             Login
 

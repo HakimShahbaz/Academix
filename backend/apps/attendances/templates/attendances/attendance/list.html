@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}
+Attendances
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>Attendances</h2>
+
+        <a href="{% url 'attendances:attendance_create' %}"
+           class="btn btn-primary">
+
+            Create Attendance
+
+        </a>
+
+    </div>
+
+    {% if attendances %}
+
+    <table class="table table-striped table-bordered">
+
+        <thead>
+
+        <tr>
+
+            <th>Student</th>
+            <th>Section</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for attendance in attendances %}
+
+        <tr>
+
+            <td>
+
+                <a href="{% url 'attendances:attendance_detail' attendance.pk %}">
+
+                    {{ attendance.enrollment.student }}
+
+                </a>
+
+            </td>
+
+            <td>{{ attendance.enrollment.section }}</td>
+
+            <td>{{ attendance.date }}</td>
+
+            <td>{{ attendance.get_status_display }}</td>
+
+            <td>
+
+                <a href="{% url 'attendances:attendance_update' attendance.pk %}"
+                   class="btn btn-warning btn-sm">
+
+                    Edit
+
+                </a>
+
+                <a href="{% url 'attendances:attendance_delete' attendance.pk %}"
+                   class="btn btn-danger btn-sm">
+
+                    Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+        <div class="alert alert-info">
+
+            No attendance records found.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

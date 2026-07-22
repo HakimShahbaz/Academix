@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+Attendance Details
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Attendance Details</h2>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Student</th>
+            <td>{{ attendance.enrollment.student }}</td>
+        </tr>
+
+        <tr>
+            <th>Section</th>
+            <td>{{ attendance.enrollment.section }}</td>
+        </tr>
+
+        <tr>
+            <th>Date</th>
+            <td>{{ attendance.date }}</td>
+        </tr>
+
+        <tr>
+            <th>Status</th>
+            <td>{{ attendance.get_status_display }}</td>
+        </tr>
+
+    </table>
+
+    <a href="{% url 'attendances:attendance_update' attendance.pk %}"
+       class="btn btn-warning">
+
+        Edit
+
+    </a>
+
+    <a href="{% url 'attendances:attendance_delete' attendance.pk %}"
+       class="btn btn-danger">
+
+        Delete
+
+    </a>
+
+    <a href="{% url 'attendances:attendance_list' %}"
+       class="btn btn-secondary">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endblock %}

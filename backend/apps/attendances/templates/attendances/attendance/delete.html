@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Attendance
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Delete Attendance</h2>
+
+    <p>
+
+        Are you sure you want to delete this attendance record?
+
+    </p>
+
+    <ul>
+
+        <li><strong>Student:</strong> {{ attendance.enrollment.student }}</li>
+
+        <li><strong>Section:</strong> {{ attendance.enrollment.section }}</li>
+
+        <li><strong>Date:</strong> {{ attendance.date }}</li>
+
+    </ul>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button class="btn btn-danger">
+
+            Delete
+
+        </button>
+
+        <a href="{% url 'attendances:attendance_list' %}"
+           class="btn btn-secondary">
+
+            Cancel
+
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
