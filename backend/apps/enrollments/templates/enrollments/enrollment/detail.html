@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+Enrollment Details
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Enrollment Details</h2>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Student</th>
+            <td>{{ enrollment.student }}</td>
+        </tr>
+
+        <tr>
+            <th>Section</th>
+            <td>{{ enrollment.section }}</td>
+        </tr>
+
+        <tr>
+            <th>Status</th>
+            <td>{{ enrollment.status }}</td>
+        </tr>
+
+        <tr>
+            <th>Enrolled At</th>
+            <td>{{ enrollment.enrolled_at }}</td>
+        </tr>
+
+    </table>
+
+    <a
+        href="{% url 'enrollments:enrollment_update' enrollment.pk %}"
+        class="btn btn-warning">
+
+        Edit
+
+    </a>
+
+    <a
+        href="{% url 'enrollments:enrollment_delete' enrollment.pk %}"
+        class="btn btn-danger">
+
+        Delete
+
+    </a>
+
+    <a
+        href="{% url 'enrollments:enrollment_list' %}"
+        class="btn btn-secondary">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endblock %}
