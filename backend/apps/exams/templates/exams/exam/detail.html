@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}
+Exam Details
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Exam Details</h2>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Title</th>
+            <td>{{ exam.title }}</td>
+        </tr>
+
+        <tr>
+            <th>Section</th>
+            <td>{{ exam.section }}</td>
+        </tr>
+
+        <tr>
+            <th>Exam Date</th>
+            <td>{{ exam.exam_date }}</td>
+        </tr>
+
+        <tr>
+            <th>Maximum Score</th>
+            <td>{{ exam.maximum_score }}</td>
+        </tr>
+
+        <tr>
+            <th>Active</th>
+            <td>
+
+                {% if exam.is_active %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+
+            </td>
+        </tr>
+
+    </table>
+
+    <a
+        href="{% url 'exams:exam_update' exam.pk %}"
+        class="btn btn-warning">
+
+        Edit
+
+    </a>
+
+    <a
+        href="{% url 'exams:exam_delete' exam.pk %}"
+        class="btn btn-danger">
+
+        Delete
+
+    </a>
+
+    <a
+        href="{% url 'exams:exam_list' %}"
+        class="btn btn-secondary">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endblock %}
