@@ -6,13 +6,23 @@ from apps.enrollments.models import Enrollment
 from apps.enrollments.forms import EnrollmentCreateForm, EnrollmentUpdateForm
 
 class EnrollmentListView(LoginRequiredMixin, ListView):
-    model = Enrollment
+    queryset = Enrollment.objects.select_related(
+        "student",
+        "student__user",
+        "section",
+        "section__course",
+    )
     context_object_name = 'enrollments'
     template_name = "enrollments/enrollment/list.html"
     paginate_by = 20
 
 class EnrollmentDetailView(LoginRequiredMixin, DetailView):
-    model = Enrollment
+    queryset = Enrollment.objects.select_related(
+        "student",
+        "student__user",
+        "section",
+        "section__course",
+    )
     context_object_name = 'enrollment'
     template_name = "enrollments/enrollment/detail.html"
 

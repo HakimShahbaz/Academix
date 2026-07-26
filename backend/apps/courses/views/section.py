@@ -6,7 +6,10 @@ from apps.courses.models import Section
 from apps.courses.forms import SectionCreateForm, SectionUpdateForm
 
 class SectionListView(LoginRequiredMixin, ListView):
-    model = Section
+    queryset = Section.objects.select_related(
+        "course",
+        "teacher",
+    )
     context_object_name = "sections"
     template_name = "courses/section/list.html"
     paginate_by = 20
@@ -29,6 +32,9 @@ class SectionDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("courses:section_list")
 
 class SectionDetailView(LoginRequiredMixin, DetailView):
-    model = Section
+    queryset = Section.objects.select_related(
+        "course",
+        "teacher"
+    )
     template_name = "courses/section/detail.html"
     context_object_name = "section"

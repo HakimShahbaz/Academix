@@ -6,13 +6,23 @@ from apps.exams.models import Grade
 from apps.exams.forms import GradeCreateForm, GradeUpdateForm
 
 class GradeListView(LoginRequiredMixin, ListView):
-    model = Grade
+    queryset = Grade.objects.select_related(
+        "enrollment",
+        "enrollment__student",
+        "enrollment__student__user",
+        "exam",
+    )
     context_object_name = 'grades'
     template_name = "exams/grade/list.html"
     paginate_by = 20
 
 class GradeDetailView(LoginRequiredMixin, DetailView):
-    model = Grade
+    queryset = Grade.objects.select_related(
+        "enrollment",
+        "enrollment__student",
+        "enrollment__student__user",
+        "exam",
+    )
     context_object_name = 'grade'
     template_name = "exams/grade/detail.html"
 

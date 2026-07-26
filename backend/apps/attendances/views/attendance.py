@@ -6,13 +6,25 @@ from apps.attendances.models import Attendance
 from apps.attendances.forms import AttendanceCreateForm, AttendanceUpdateForm
 
 class AttendanceListView(LoginRequiredMixin, ListView):
-    model = Attendance
+    queryset = Attendance.objects.select_related(
+        "enrollment",
+        "enrollment__student",
+        "enrollment__student__user",
+        "enrollment__section",
+        "enrollment__section__course",
+    )
     template_name = "attendances/attendance/list.html"
     context_object_name = "attendances"
     paginate_by = 20
 
 class AttendanceDetailView(LoginRequiredMixin, DetailView):
-    model = Attendance
+    queryset = Attendance.objects.select_related(
+        "enrollment",
+        "enrollment__student",
+        "enrollment__student__user",
+        "enrollment__section",
+        "enrollment__section__course",
+    )
     context_object_name = "attendance"
     template_name = "attendances/attendance/detail.html"
 
