@@ -8,16 +8,20 @@ from .grade import (
     GradeDetailView, GradeUpdateView
 )
 
-__all__ = [
+EXAM_VIEWS = [
     'ExamCreateView',
     'ExamListView',
     'ExamDeleteView',
     'ExamDetailView',
     'ExamUpdateView',
+]
 
+GRADES_VIEWS = [
     'GradeCreateView',
     'GradeListView',
     'GradeDeleteView',
     'GradeDetailView',
     'GradeUpdateView'
 ]
+
+__all__ = EXAM_VIEWS + GRADES_VIEWS

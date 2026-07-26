@@ -7,15 +7,20 @@ from .section import (
     SectionDeleteView, SectionDetailView
 )
 
-__all__ = [
+COURSE_VIEWS = [
     "CourseCreateView",
     "CourseUpdateView",
     "CourseListView",
     "CourseDeleteView",
     "CourseDetailView",
+]
+
+SECTION_VIEWS = [
     "SectionCreateView",
     "SectionUpdateView",
     "SectionListView",
     "SectionDeleteView",
     "SectionDetailView",
 ]
+
+__all__ = COURSE_VIEWS + SECTION_VIEWS
