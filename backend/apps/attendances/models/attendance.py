@@ -1,7 +1,8 @@
 from django.db import models
 
 from apps.enrollments.models import Enrollment
-
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 class Attendance(models.Model):
 
@@ -29,9 +30,17 @@ class Attendance(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['enrollment', 'date'],
-                name='unique_attendance_pe_day',
+                name='unique_attendance_per_day',
             )
         ]
+
+    def clean(self):
+        super().clean()
+
+        if self.date > timezone.now().date():
+            raise ValidationError({
+                "date": "Attendance date cannot be in the future"
+            })
 
     def __str__(self):
         return (f'{self.enrollment.student.student_number} | '

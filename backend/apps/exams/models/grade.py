@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from apps.enrollments.models import Enrollment
@@ -33,7 +34,19 @@ class Grade(models.Model):
             )
         ]
 
-    def  __str__(self):
+    def clean(self):
+        super().clean()
+
+        if (
+            self.exam_id
+            and self.score is not None
+            and self.score > self.exam.maximum_score
+        ):
+            raise ValidationError({
+                "score": f"Score cannot be greater than {self.exam.maximum_score}"
+            })
+
+    def __str__(self):
         return (
             f"{self.enrollment.student.student_number} | {self.exam.title} |"
             f"{self.score}"

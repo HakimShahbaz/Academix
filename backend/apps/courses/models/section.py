@@ -3,6 +3,7 @@ from django.db import models
 from .course import Course
 from apps.profiles.models import TeacherProfile
 
+from django.core.exceptions import ValidationError
 
 class Section(models.Model):
     code = models.CharField(
@@ -30,6 +31,14 @@ class Section(models.Model):
         ordering = ['code']
         verbose_name='Section'
         verbose_name_plural = 'Sections'
+
+    def clean(self):
+        super().clean()
+
+        if self.end_date < self.start_date:
+            raise ValidationError({
+                'end_date': "End date must be after start date",
+            })
 
     def __str__(self):
         return f"{self.code} - {self.course}"
