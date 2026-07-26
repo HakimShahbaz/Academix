@@ -3,10 +3,21 @@ from .exam import (
     ExamDetailView, ExamUpdateView
 )
 
+from .grade import (
+    GradeCreateView, GradeListView, GradeDeleteView,
+    GradeDetailView, GradeUpdateView
+)
+
 __all__ = [
     'ExamCreateView',
     'ExamListView',
     'ExamDeleteView',
     'ExamDetailView',
-    'ExamUpdateView'
+    'ExamUpdateView',
+
+    'GradeCreateView',
+    'GradeListView',
+    'GradeDeleteView',
+    'GradeDetailView',
+    'GradeUpdateView'
 ]

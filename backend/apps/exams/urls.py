@@ -5,6 +5,11 @@ from .views import (
     ExamDetailView, ExamUpdateView
 )
 
+from .views import (
+    GradeCreateView, GradeListView, GradeDeleteView,
+    GradeDetailView, GradeUpdateView
+)
+
 app_name = 'exams'
 
 urlpatterns = [
@@ -32,4 +37,30 @@ urlpatterns = [
         ExamDeleteView.as_view(),
         name='exam_delete',
     ),
+
+    path(
+        'grades/',
+        GradeListView.as_view(),
+        name='grade_list',
+    ),
+    path(
+        'grades/create/',
+        GradeCreateView.as_view(),
+        name='grade_create',
+    ),
+    path(
+        'grades/<int:pk>/',
+        GradeDetailView.as_view(),
+        name='grade_detail',
+    ),
+    path(
+        'grades/<int:pk>/edit/',
+        GradeUpdateView.as_view(),
+        name='grade_update',
+    ),
+    path(
+        'grades/<int:pk>/delete/',
+        GradeDeleteView.as_view(),
+        name='grade_delete',
+    )
 ]

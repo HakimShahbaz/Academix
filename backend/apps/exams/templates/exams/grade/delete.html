@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Grade
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Delete Grade</h2>
+
+    <p>
+
+        Are you sure you want to delete this grade?
+
+    </p>
+
+    <ul>
+
+        <li><strong>Student:</strong> {{ grade.enrollment.student }}</li>
+
+        <li><strong>Exam:</strong> {{ grade.exam.title }}</li>
+
+        <li><strong>Score:</strong> {{ grade.score }}</li>
+
+    </ul>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button class="btn btn-danger">
+
+            Delete
+
+        </button>
+
+        <a href="{% url 'exams:grade_list' %}"
+           class="btn btn-secondary">
+
+            Cancel
+
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
