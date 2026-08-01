@@ -1,0 +1,3 @@
+STUDENT_GROUP = "Student"
+TEACHER_GROUP = "Teacher"
+EMPLOYEE_GROUP = "Employee"
