@@ -7,26 +7,35 @@ Dashboard
 {% block content %}
 
 <h1 class="mb-4">
-
     Dashboard
-
 </h1>
 
 <div class="row g-4">
 
-    <div class="col-md-3">
+    <div class="col-md-4">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header fw-bold">
+                Users
+            </div>
 
             <div class="card-body">
 
-                <h6 class="text-muted">
-                    Students
-                </h6>
+                <p class="mb-2">
+                    <strong>Students:</strong>
+                    {{ student_count }}
+                </p>
 
-                <h2>
-                    0
-                </h2>
+                <p class="mb-2">
+                    <strong>Teachers:</strong>
+                    {{ teacher_count }}
+                </p>
+
+                <p class="mb-0">
+                    <strong>Employees:</strong>
+                    {{ employee_count }}
+                </p>
 
             </div>
 
@@ -34,19 +43,30 @@ Dashboard
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header fw-bold">
+                Academics
+            </div>
 
             <div class="card-body">
 
-                <h6 class="text-muted">
-                    Teachers
-                </h6>
+                <p class="mb-2">
+                    <strong>Courses:</strong>
+                    {{ course_count }}
+                </p>
 
-                <h2>
-                    0
-                </h2>
+                <p class="mb-2">
+                    <strong>Sections:</strong>
+                    {{ section_count }}
+                </p>
+
+                <p class="mb-0">
+                    <strong>Enrollments:</strong>
+                    {{ enrollment_count }}
+                </p>
 
             </div>
 
@@ -54,39 +74,30 @@ Dashboard
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm h-100">
 
-            <div class="card-body">
-
-                <h6 class="text-muted">
-                    Courses
-                </h6>
-
-                <h2>
-                    0
-                </h2>
-
+            <div class="card-header fw-bold">
+                Assessments
             </div>
 
-        </div>
-
-    </div>
-
-    <div class="col-md-3">
-
-        <div class="card shadow-sm">
-
             <div class="card-body">
 
-                <h6 class="text-muted">
-                    Sections
-                </h6>
+                <p class="mb-2">
+                    <strong>Attendances:</strong>
+                    {{ attendance_count }}
+                </p>
 
-                <h2>
-                    0
-                </h2>
+                <p class="mb-2">
+                    <strong>Exams:</strong>
+                    {{ exam_count }}
+                </p>
+
+                <p class="mb-0">
+                    <strong>Grades:</strong>
+                    {{ grade_count }}
+                </p>
 
             </div>
 
