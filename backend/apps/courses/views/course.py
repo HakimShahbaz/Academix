@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from apps.core.mixins import SearchableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -12,6 +13,11 @@ class CourseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "courses/course/list.html"
     paginate_by = 20
     raise_exception = True
+
+    search_fields = [
+        "code",
+        "title",
+    ]
 
 class CourseDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = "courses.view_course"

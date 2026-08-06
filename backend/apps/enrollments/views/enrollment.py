@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from apps.core.mixins import SearchableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from apps.enrollments.models import Enrollment
 from apps.enrollments.forms import EnrollmentCreateForm, EnrollmentUpdateForm
 
-class EnrollmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class EnrollmentListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin, ListView):
     permission_required = "enrollments.view_enrollment"
     queryset = Enrollment.objects.select_related(
         "student",
@@ -17,6 +18,15 @@ class EnrollmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "enrollments/enrollment/list.html"
     paginate_by = 20
     raise_exception = True
+
+    search_fields = [
+        "student__student_number",
+        "student__user__first_name",
+        "student__user__last_name",
+        "student__user__username",
+        "section__code",
+        "section__course__title",
+    ]
 
 class EnrollmentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = "enrollments.view_enrollment"

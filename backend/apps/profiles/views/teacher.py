@@ -1,9 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from apps.core.mixins import SearchableListViewMixin
 from django.contrib.auth.models import Group
 from django.db import transaction
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 
@@ -13,13 +12,20 @@ from apps.accounts.constants import TEACHER_GROUP
 
 User = get_user_model()
 
-class TeacherListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class TeacherListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListViewMixin, ListView):
     permission_required = "profiles.view_teacherprofile"
     model = TeacherProfile
     context_object_name = "teachers"
     template_name = "profiles/teacher/list.html"
     paginate_by = 20
     raise_exception = True
+
+    search_fields = [
+        "teacher_number",
+        "user__username",
+        "user__first_name",
+        "user__last_name",
+    ]
 
 class TeacherDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = "profiles.view_teacherprofile"

@@ -20,6 +20,22 @@ Employees
 
     {% if employees %}
 
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Search employees...">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                        {% if request.GET.q %}
+                            <a href="{% url 'profiles:employee_list' %}" class="btn btn-outline-secondary">
+                                Clear
+                            </a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+
     <table class="table table-striped table-bordered">
 
         <thead>

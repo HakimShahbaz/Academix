@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from apps.core.mixins import SearchableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from apps.attendances.models import Attendance
 from apps.attendances.forms import AttendanceCreateForm, AttendanceUpdateForm
 
-class AttendanceListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class AttendanceListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin, ListView):
     queryset = Attendance.objects.select_related(
         "enrollment",
         "enrollment__student",
@@ -18,6 +19,16 @@ class AttendanceListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = "attendances"
     paginate_by = 20
     raise_exception = True
+
+    search_fields = [
+        "enrollment__student__student_number",
+        "enrollment__student__user__username",
+        "enrollment__student__user__first_name",
+        "enrollment__student__user__last_name",
+        "enrollment__section__code",
+        "enrollment__section__course__title",
+        "status",
+    ]
 
 class AttendanceDetailView(LoginRequiredMixin, PermissionRequiredMixin,  DetailView):
     queryset = Attendance.objects.select_related(

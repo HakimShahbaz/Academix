@@ -1,11 +1,12 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from apps.core.mixins import SearchableListViewMixin
 from django.urls import reverse_lazy
 
 from apps.exams.models import Grade
 from apps.exams.forms import GradeCreateForm, GradeUpdateForm
 
-class GradeListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class GradeListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin, ListView):
     permission_required = "exams.view_grade"
     queryset = Grade.objects.select_related(
         "enrollment",
@@ -17,6 +18,16 @@ class GradeListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "exams/grade/list.html"
     paginate_by = 20
     raise_exception = True
+
+    search_fields = [
+        "enrollment__student__student_number",
+        "enrollment__student__user__username",
+        "enrollment__student__user__first_name",
+        "enrollment__student__user__last_name",
+        "exam__title",
+        "exam__section__code",
+        "score",
+    ]
 
 class GradeDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = "exams.view_grade"
