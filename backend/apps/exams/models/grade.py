@@ -37,14 +37,22 @@ class Grade(models.Model):
     def clean(self):
         super().clean()
 
+        errors = {}
+
+        if self.score is not None and self.score < 0:
+            errors["score"] = "Score cannot be negative."
+
         if (
-            self.exam_id
-            and self.score is not None
-            and self.score > self.exam.maximum_score
+                self.exam_id
+                and self.score is not None
+                and self.score > self.exam.maximum_score
         ):
-            raise ValidationError({
-                "score": f"Score cannot be greater than {self.exam.maximum_score}"
-            })
+            errors["score"] = (
+                f"Score cannot be greater than {self.exam.maximum_score}"
+            )
+
+        if errors:
+            raise ValidationError(errors)
 
     def __str__(self):
         return (
