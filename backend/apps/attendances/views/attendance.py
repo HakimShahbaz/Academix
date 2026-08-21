@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from apps.core.mixins import SearchableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from apps.attendances.models import Attendance
 from apps.attendances.forms import AttendanceCreateForm, AttendanceUpdateForm
@@ -51,6 +52,14 @@ class AttendanceCreateView(LoginRequiredMixin, PermissionRequiredMixin,  CreateV
     success_url = reverse_lazy("attendances:attendance_list")
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Attendance created successfully!"
+        )
+
+        return super().form_valid(form)
+
 class AttendanceUpdateView(LoginRequiredMixin, PermissionRequiredMixin,  UpdateView):
     model = Attendance
     permission_required = "attendances.change_attendance"
@@ -59,9 +68,25 @@ class AttendanceUpdateView(LoginRequiredMixin, PermissionRequiredMixin,  UpdateV
     success_url = reverse_lazy("attendances:attendance_list")
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Attendance updated successfully!"
+        )
+
+        return super().form_valid(form)
+
 class AttendanceDeleteView(LoginRequiredMixin, PermissionRequiredMixin,  DeleteView):
     model = Attendance
     permission_required = "attendances.delete_attendance"
     template_name = "attendances/attendance/delete.html"
     success_url = reverse_lazy("attendances:attendance_list")
     raise_exception = True
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Attendance deleted successfully!"
+        )
+
+        return super().form_valid(form)

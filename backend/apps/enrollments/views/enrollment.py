@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from apps.core.mixins import SearchableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from apps.enrollments.models import Enrollment
 from apps.enrollments.forms import EnrollmentCreateForm, EnrollmentUpdateForm
@@ -48,6 +49,14 @@ class EnrollmentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVi
     success_url = reverse_lazy('enrollments:enrollment_list')
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Enrollment created successfully!"
+        )
+
+        return super().form_valid(form)
+
 class EnrollmentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "enrollments.change_enrollment"
     model = Enrollment
@@ -56,9 +65,25 @@ class EnrollmentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVi
     success_url = reverse_lazy('enrollments:enrollment_list')
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Enrollment updated successfully!"
+        )
+
+        return super().form_valid(form)
+
 class EnrollmentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "enrollments.delete_enrollment"
     model = Enrollment
     template_name = "enrollments/enrollment/delete.html"
     success_url = reverse_lazy('enrollments:enrollment_list')
     raise_exception = True
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Enrollment deleted successfully!"
+        )
+
+        return super().form_valid(form)

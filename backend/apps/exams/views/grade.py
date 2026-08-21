@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from apps.core.mixins import SearchableListViewMixin
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from apps.exams.models import Grade
 from apps.exams.forms import GradeCreateForm, GradeUpdateForm
@@ -49,6 +50,14 @@ class GradeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('exams:grade_list')
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Grade created successfully!"
+        )
+
+        return super().form_valid(form)
+
 class GradeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "exams.change_grade"
     model = Grade
@@ -57,9 +66,25 @@ class GradeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     success_url = reverse_lazy('exams:grade_list')
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Grade updated successfully!"
+        )
+
+        return super().form_valid(form)
+
 class GradeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "exams.delete_grade"
     model = Grade
     template_name = "exams/grade/delete.html"
     success_url = reverse_lazy('exams:grade_list')
     raise_exception = True
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Grade deleted successfully!"
+        )
+
+        return super().form_valid(form)

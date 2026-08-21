@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from apps.core.mixins import SearchableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from apps.courses.models import Section
 from apps.courses.forms import SectionCreateForm, SectionUpdateForm
@@ -34,6 +35,14 @@ class SectionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     success_url = reverse_lazy("courses:section_list")
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Section created successfully!"
+        )
+
+        return super().form_valid(form)
+
 class SectionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "courses.change_section"
     model = Section
@@ -42,12 +51,28 @@ class SectionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     success_url = reverse_lazy("courses:section_list")
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Section updated successfully!"
+        )
+
+        return super().form_valid(form)
+
 class SectionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "courses.delete_section"
     model = Section
     template_name = "courses/section/delete.html"
     success_url = reverse_lazy("courses:section_list")
     raise_exception = True
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Section deleted successfully!"
+        )
+
+        return super().form_valid(form)
 
 class SectionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = "courses.view_section"

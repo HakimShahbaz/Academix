@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.db import transaction
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from apps.profiles.models import TeacherProfile
 from apps.profiles.forms import TeacherUpdateForm, TeacherCreateForm
@@ -61,6 +62,11 @@ class TeacherCreateView(LoginRequiredMixin, PermissionRequiredMixin, FormView):
             hire_date = form.cleaned_data["hire_date"],
         )
 
+        messages.success(
+            self.request,
+            "Teacher created successfully!"
+        )
+
         return super().form_valid(form)
 
 
@@ -72,6 +78,13 @@ class TeacherUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     success_url = reverse_lazy("profiles:teacher_list")
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Teacher updated successfully!"
+        )
+        return super().form_valid(form)
+
 class TeacherDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "profiles.delete_teacherprofile"
     model = TeacherProfile
@@ -81,6 +94,10 @@ class TeacherDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
     def form_valid(self, form):
         user = self.object.user
+        messages.success(
+            self.request,
+            "Teacher deleted successfully!"
+        )
         response = super().form_valid(form)
         user.delete()
         return response

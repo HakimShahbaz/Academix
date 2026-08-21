@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from apps.core.mixins import SearchableListViewMixin
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from apps.exams.models import Exam
 from apps.exams.forms import ExamCreateForm, ExamUpdateForm
@@ -34,6 +35,14 @@ class ExamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('exams:exam_list')
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Exam created successfully!"
+        )
+
+        return super().form_valid(form)
+
 class ExamUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'exams.change_exam'
     model = Exam
@@ -42,10 +51,26 @@ class ExamUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     success_url = reverse_lazy('exams:exam_list')
     raise_exception = True
 
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Exam updated successfully!"
+        )
+
+        return super().form_valid(form)
+
 class ExamDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'exams.delete_exam'
     model = Exam
     template_name = "exams/exam/delete.html"
     success_url = reverse_lazy('exams:exam_list')
     raise_exception = True
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "Exam deleted successfully!"
+        )
+
+        return super().form_valid(form)
 
