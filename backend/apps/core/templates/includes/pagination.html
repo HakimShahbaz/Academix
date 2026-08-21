@@ -10,7 +10,7 @@
 
                 <a
                     class="page-link"
-                    href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                    href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
 
                     First
 
@@ -22,7 +22,7 @@
 
                 <a
                     class="page-link"
-                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
 
                     Previous
 
@@ -46,7 +46,6 @@
 
         {% endif %}
 
-
         <li class="page-item active">
 
             <span class="page-link">
@@ -57,14 +56,13 @@
 
         </li>
 
-
         {% if page_obj.has_next %}
 
             <li class="page-item">
 
                 <a
                     class="page-link"
-                    href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                    href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
 
                     Next
 
@@ -76,7 +74,7 @@
 
                 <a
                     class="page-link"
-                    href="?page={{ paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                    href="?page={{ paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
 
                     Last
 

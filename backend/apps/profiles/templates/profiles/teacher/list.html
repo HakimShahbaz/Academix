@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sorting %}
 
 {% block title %}
 Teachers
@@ -41,9 +42,17 @@ Teachers
             <thead>
 
                 <tr>
-                    <th>Teacher Number</th>
-                    <th>Username</th>
+
+                    <th>
+                        {% sortable_header "teacher_number" "Teacher Number" %}
+                    </th>
+
+                    <th>
+                        {% sortable_header "user__username" "Username" %}
+                    </th>
+
                     <th>Actions</th>
+
                 </tr>
 
             </thead>

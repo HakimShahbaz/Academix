@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from apps.core.mixins import SearchableListViewMixin
+from apps.core.mixins import SearchableListViewMixin, SortableListViewMixin
 from django.contrib.auth.models import Group
 from django.db import transaction
 from django.views.generic import ListView, UpdateView, DeleteView, DetailView, FormView
@@ -13,7 +13,7 @@ from apps.accounts.constants import STUDENT_GROUP
 
 User = get_user_model()
 
-class StudentListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin, ListView):
+class StudentListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin,SortableListViewMixin, ListView):
     permission_required = "profiles.view_studentprofile"
     model = StudentProfile
     template_name = "profiles/student/list.html"
@@ -26,6 +26,14 @@ class StudentListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableList
         "user__username",
         "user__first_name",
         "user__last_name",
+    ]
+
+    sort_fields = [
+        "student_number",
+        "user__username",
+        "user__first_name",
+        "user__last_name",
+        "initial_enrollment_date",
     ]
 
 class StudentCreateView(LoginRequiredMixin, PermissionRequiredMixin, FormView):

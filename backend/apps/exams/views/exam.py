@@ -1,13 +1,13 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from apps.core.mixins import SearchableListViewMixin
+from apps.core.mixins import SearchableListViewMixin, SortableListViewMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 
 from apps.exams.models import Exam
 from apps.exams.forms import ExamCreateForm, ExamUpdateForm
 
-class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListViewMixin, ListView):
+class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListViewMixin,SortableListViewMixin, ListView):
     permission_required = 'exams.view_exam'
     model = Exam
     template_name = "exams/exam/list.html"
@@ -18,6 +18,15 @@ class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListVi
     search_fields = [
         "title",
         "section__code",
+    ]
+
+    sort_fields = [
+        "title",
+        "section__code",
+        "section__course__title",
+        "exam_date",
+        "maximum_score",
+        "is_active",
     ]
 
 class ExamDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):

@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from apps.core.mixins import SearchableListViewMixin
+from apps.core.mixins import SearchableListViewMixin, SortableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib import messages
 from apps.attendances.models import Attendance
 from apps.attendances.forms import AttendanceCreateForm, AttendanceUpdateForm
 
-class AttendanceListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin, ListView):
+class AttendanceListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin,SortableListViewMixin, ListView):
     queryset = Attendance.objects.select_related(
         "enrollment",
         "enrollment__student",
@@ -28,6 +28,15 @@ class AttendanceListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableL
         "enrollment__student__user__last_name",
         "enrollment__section__code",
         "enrollment__section__course__title",
+        "status",
+    ]
+
+    sort_fields = [
+        "enrollment__student__student_number",
+        "enrollment__student__user__username",
+        "enrollment__section__code",
+        "enrollment__section__course__title",
+        "date",
         "status",
     ]
 

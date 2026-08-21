@@ -20,3 +20,37 @@ class SearchableListViewMixin:
             filters |= Q(**{f"{field}__icontains": query})
 
         return queryset.filter(filters).distinct()
+
+class SortableListViewMixin:
+    sort_param = "sort"
+    sort_fields = []
+
+    def get_sort_field(self):
+        sort = self.request.GET.get(self.sort_param)
+
+        if not sort:
+            return None
+
+        field = sort.lstrip("-")
+
+        if field not in self.sort_fields:
+            return None
+
+        return sort
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        sort_field = self.get_sort_field()
+        if sort_field:
+            queryset = queryset.order_by(sort_field)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["current_sort"] = self.request.GET.get(
+            self.sort_param,
+            ""
+        )
+
+        return context

@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from apps.core.mixins import SearchableListViewMixin
+from apps.core.mixins import SearchableListViewMixin, SortableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib import messages
 from apps.enrollments.models import Enrollment
 from apps.enrollments.forms import EnrollmentCreateForm, EnrollmentUpdateForm
 
-class EnrollmentListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin, ListView):
+class EnrollmentListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin,SortableListViewMixin, ListView):
     permission_required = "enrollments.view_enrollment"
     queryset = Enrollment.objects.select_related(
         "student",
@@ -27,6 +27,15 @@ class EnrollmentListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableL
         "student__user__username",
         "section__code",
         "section__course__title",
+    ]
+
+    sort_fields = [
+        "student__student_number",
+        "student__user__username",
+        "section__code",
+        "section__course__title",
+        "status",
+        "enrolled_at",
     ]
 
 class EnrollmentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):

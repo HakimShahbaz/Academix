@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sorting %}
 
 {% block title %}
 Grades
@@ -43,14 +44,23 @@ Grades
 
         <thead>
 
-        <tr>
+            <tr>
 
-            <th>Student</th>
-            <th>Exam</th>
-            <th>Score</th>
-            <th>Actions</th>
+                <th>
+                    {% sortable_header "enrollment__student__student_number" "Student" %}
+                </th>
 
-        </tr>
+                <th>
+                    {% sortable_header "exam__title" "Exam" %}
+                </th>
+
+                <th>
+                    {% sortable_header "score" "Score" %}
+                </th>
+
+                <th>Actions</th>
+
+            </tr>
 
         </thead>
 

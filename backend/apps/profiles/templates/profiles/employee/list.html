@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sorting %}
 
 {% block title %}
 Employees
@@ -39,11 +40,21 @@ Employees
     <table class="table table-striped table-bordered">
 
         <thead>
+
             <tr>
-                <th>Employee Number</th>
-                <th>Username</th>
+
+                <th>
+                    {% sortable_header "employee_number" "Employee Number" %}
+                </th>
+
+                <th>
+                    {% sortable_header "user__username" "Username" %}
+                </th>
+
                 <th>Actions</th>
+
             </tr>
+
         </thead>
 
         <tbody>

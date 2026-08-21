@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from apps.core.mixins import SearchableListViewMixin
+from apps.core.mixins import SearchableListViewMixin, SortableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib import messages
 from apps.courses.models import Section
 from apps.courses.forms import SectionCreateForm, SectionUpdateForm
 
-class SectionListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin, ListView):
+class SectionListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableListViewMixin,SortableListViewMixin, ListView):
     permission_required = "courses.view_section"
     queryset = Section.objects.select_related(
         "course",
@@ -25,6 +25,16 @@ class SectionListView(LoginRequiredMixin, PermissionRequiredMixin,SearchableList
         "teacher__user__username",
         "teacher__user__first_name",
         "teacher__user__last_name",
+    ]
+
+    sort_fields = [
+        "code",
+        "course__title",
+        "teacher__teacher_number",
+        "capacity",
+        "is_active",
+        "start_date",
+        "end_date",
     ]
 
 class SectionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

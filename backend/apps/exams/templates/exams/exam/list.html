@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sorting %}
 
 {% block title %}
 Exams
@@ -43,16 +44,31 @@ Exams
 
         <thead>
 
-        <tr>
+            <tr>
 
-            <th>Title</th>
-            <th>Section</th>
-            <th>Exam Date</th>
-            <th>Maximum Score</th>
-            <th>Active</th>
-            <th>Actions</th>
+                <th>
+                    {% sortable_header "title" "Exam" %}
+                </th>
 
-        </tr>
+                <th>
+                    {% sortable_header "section__code" "Section" %}
+                </th>
+
+                <th>
+                    {% sortable_header "exam_date" "Exam Date" %}
+                </th>
+
+                <th>
+                    {% sortable_header "maximum_score" "Maximum Score" %}
+                </th>
+
+                <th>
+                    {% sortable_header "is_active" "Active" %}
+                </th>
+
+                <th>Actions</th>
+
+            </tr>
 
         </thead>
 

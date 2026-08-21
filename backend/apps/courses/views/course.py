@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from apps.core.mixins import SearchableListViewMixin
+from apps.core.mixins import SearchableListViewMixin, SortableListViewMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib import messages
 from apps.courses.models import Course
 from apps.courses.forms import CourseCreateForm, CourseUpdateForm
 
-class CourseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class CourseListView(LoginRequiredMixin, PermissionRequiredMixin,SortableListViewMixin, ListView):
     permission_required = "courses.view_course"
     model = Course
     context_object_name = 'courses'
@@ -18,6 +18,12 @@ class CourseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     search_fields = [
         "code",
         "title",
+    ]
+
+    sort_fields = [
+        "code",
+        "title",
+        "is_active",
     ]
 
 class CourseDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):

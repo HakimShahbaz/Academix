@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sorting %}
 
 {% block title %}
 Enrollments
@@ -43,15 +44,27 @@ Enrollments
 
         <thead>
 
-        <tr>
+            <tr>
 
-            <th>Student</th>
-            <th>Section</th>
-            <th>Status</th>
-            <th>Enrolled At</th>
-            <th>Actions</th>
+                <th>
+                    {% sortable_header "student__student_number" "Student" %}
+                </th>
 
-        </tr>
+                <th>
+                    {% sortable_header "section__code" "Section" %}
+                </th>
+
+                <th>
+                    {% sortable_header "status" "Status" %}
+                </th>
+
+                <th>
+                    {% sortable_header "enrolled_at" "Enrolled At" %}
+                </th>
+
+                <th>Actions</th>
+
+            </tr>
 
         </thead>
 

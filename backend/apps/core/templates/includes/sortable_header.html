@@ -1,0 +1,16 @@
+<a
+    href="?sort={{ next_sort }}{% if query %}&q={{ query }}{% endif %}"
+    class="text-decoration-none text-dark"
+>
+
+    {{ label }}
+
+    {% if current_sort == field %}
+        ↑
+    {% elif current_sort == "-"|add:field %}
+        ↓
+    {% else %}
+        ↕
+    {% endif %}
+
+</a>

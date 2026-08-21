@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from apps.core.mixins import SearchableListViewMixin
+from apps.core.mixins import SearchableListViewMixin, SortableListViewMixin
 from django.contrib.auth.models import Group
 from django.db import transaction
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, FormView
@@ -13,7 +13,7 @@ from apps.accounts.constants import TEACHER_GROUP
 
 User = get_user_model()
 
-class TeacherListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListViewMixin, ListView):
+class TeacherListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListViewMixin,SortableListViewMixin, ListView):
     permission_required = "profiles.view_teacherprofile"
     model = TeacherProfile
     context_object_name = "teachers"
@@ -26,6 +26,12 @@ class TeacherListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableLis
         "user__username",
         "user__first_name",
         "user__last_name",
+    ]
+
+    sort_fields = [
+        "teacher_number",
+        "user__username",
+        "hire_date",
     ]
 
 class TeacherDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
