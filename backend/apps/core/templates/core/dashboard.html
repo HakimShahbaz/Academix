@@ -6,100 +6,252 @@ Dashboard
 
 {% block content %}
 
-<h1 class="mb-4">
-    Dashboard
-</h1>
+<div class="container mt-4">
 
-<div class="row g-4">
+    <h1 class="mb-4">
+        Dashboard
+    </h1>
 
-    <div class="col-md-4">
 
-        <div class="card shadow-sm h-100">
+    <!-- Statistics -->
 
-            <div class="card-header fw-bold">
-                Users
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Students</h6>
+                    <h2>{{ student_count }}</h2>
+                </div>
             </div>
+        </div>
 
-            <div class="card-body">
 
-                <p class="mb-2">
-                    <strong>Students:</strong>
-                    {{ student_count }}
-                </p>
-
-                <p class="mb-2">
-                    <strong>Teachers:</strong>
-                    {{ teacher_count }}
-                </p>
-
-                <p class="mb-0">
-                    <strong>Employees:</strong>
-                    {{ employee_count }}
-                </p>
-
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Teachers</h6>
+                    <h2>{{ teacher_count }}</h2>
+                </div>
             </div>
+        </div>
+
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Employees</h6>
+                    <h2>{{ employee_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Courses</h6>
+                    <h2>{{ course_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Sections</h6>
+                    <h2>{{ section_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Enrollments</h6>
+                    <h2>{{ enrollment_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Attendance</h6>
+                    <h2>{{ attendance_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Exams</h6>
+                    <h2>{{ exam_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 col-lg-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Grades</h6>
+                    <h2>{{ grades_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Recent Enrollments -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <h4 class="mb-3">
+                Recent Enrollments
+            </h4>
+
+            {% if recent_enrollments %}
+
+                <div class="table-responsive">
+
+                    <table class="table table-striped table-bordered mb-0">
+
+                        <thead>
+
+                            <tr>
+                                <th>Student</th>
+                                <th>Section</th>
+                                <th>Course</th>
+                                <th>Enrolled At</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for enrollment in recent_enrollments %}
+
+                            <tr>
+
+                                <td>
+                                    {{ enrollment.student.user.username }}
+                                </td>
+
+                                <td>
+                                    {{ enrollment.section.code }}
+                                </td>
+
+                                <td>
+                                    {{ enrollment.section.course.title }}
+                                </td>
+
+                                <td>
+                                    {{ enrollment.enrolled_at }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-info mb-0">
+                    No recent enrollments found.
+                </div>
+
+            {% endif %}
 
         </div>
 
     </div>
 
-    <div class="col-md-4">
 
-        <div class="card shadow-sm h-100">
+    <!-- Upcoming Exams -->
 
-            <div class="card-header fw-bold">
-                Academics
-            </div>
+    <div class="card shadow-sm mb-4">
 
-            <div class="card-body">
+        <div class="card-body">
 
-                <p class="mb-2">
-                    <strong>Courses:</strong>
-                    {{ course_count }}
-                </p>
+            <h4 class="mb-3">
+                Upcoming Exams
+            </h4>
 
-                <p class="mb-2">
-                    <strong>Sections:</strong>
-                    {{ section_count }}
-                </p>
+            {% if upcoming_exams %}
 
-                <p class="mb-0">
-                    <strong>Enrollments:</strong>
-                    {{ enrollment_count }}
-                </p>
+                <div class="table-responsive">
 
-            </div>
+                    <table class="table table-striped table-bordered mb-0">
 
-        </div>
+                        <thead>
 
-    </div>
+                            <tr>
+                                <th>Exam</th>
+                                <th>Course</th>
+                                <th>Section</th>
+                                <th>Exam Date</th>
+                                <th>Maximum Score</th>
+                            </tr>
 
-    <div class="col-md-4">
+                        </thead>
 
-        <div class="card shadow-sm h-100">
+                        <tbody>
 
-            <div class="card-header fw-bold">
-                Assessments
-            </div>
+                        {% for exam in upcoming_exams %}
 
-            <div class="card-body">
+                            <tr>
 
-                <p class="mb-2">
-                    <strong>Attendances:</strong>
-                    {{ attendance_count }}
-                </p>
+                                <td>
+                                    {{ exam.title }}
+                                </td>
 
-                <p class="mb-2">
-                    <strong>Exams:</strong>
-                    {{ exam_count }}
-                </p>
+                                <td>
+                                    {{ exam.section.course.title }}
+                                </td>
 
-                <p class="mb-0">
-                    <strong>Grades:</strong>
-                    {{ grade_count }}
-                </p>
+                                <td>
+                                    {{ exam.section.code }}
+                                </td>
 
-            </div>
+                                <td>
+                                    {{ exam.exam_date }}
+                                </td>
+
+                                <td>
+                                    {{ exam.maximum_score }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-info mb-0">
+                    No upcoming exams found.
+                </div>
+
+            {% endif %}
 
         </div>
 
