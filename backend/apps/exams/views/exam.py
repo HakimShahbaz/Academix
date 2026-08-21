@@ -9,7 +9,10 @@ from apps.exams.forms import ExamCreateForm, ExamUpdateForm
 
 class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListViewMixin,SortableListViewMixin, ListView):
     permission_required = 'exams.view_exam'
-    model = Exam
+    queryset = Exam.objects.select_related(
+        "section",
+        "section__course",
+    )
     template_name = "exams/exam/list.html"
     context_object_name = "exams"
     paginate_by = 20
@@ -18,6 +21,7 @@ class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListVi
     search_fields = [
         "title",
         "section__code",
+        "section__course__title",
     ]
 
     sort_fields = [
@@ -31,7 +35,10 @@ class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, SearchableListVi
 
 class ExamDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     permission_required = 'exams.view_exam'
-    model = Exam
+    queryset = Exam.objects.select_related(
+        "section",
+        "section__course",
+    )
     template_name = "exams/exam/detail.html"
     context_object_name = "exam"
     raise_exception = True

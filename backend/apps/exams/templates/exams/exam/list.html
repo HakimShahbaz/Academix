@@ -28,7 +28,7 @@ Exams
             <div class="col-md-6">
                 <form method="get">
                     <div class="input-group">
-                        <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Search students...">
+                        <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Search exams...">
                         <button class="btn btn-primary" type="submit">Search</button>
                         {% if request.GET.q %}
                             <a href="{% url 'exams:exam_list' %}" class="btn btn-outline-secondary">
