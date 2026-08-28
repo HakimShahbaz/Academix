@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
+from django.db.models import Count, Q
 
 from apps.profiles.models import StudentProfile
 from apps.profiles.models import TeacherProfile
@@ -10,11 +11,7 @@ from apps.exams.models import Grade
 from apps.courses.models import Section
 
 
-class StudentReportView(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    TemplateView,
-):
+class StudentReportView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = "profiles.view_studentprofile"
     template_name = "reports/student/detail.html"
     raise_exception = True
@@ -27,40 +24,34 @@ class StudentReportView(
             pk=self.kwargs["pk"],
         )
 
-        enrollments = (
-            student.enrollments
-            .select_related(
-                "section",
-                "section__course",
-            )
-            .all()
+        attendance_summary = student.enrollments.aggregate(
+            total=Count("attendances"),
+            present=Count(
+                "attendances",
+                filter=Q(attendances__status="present"),
+            ),
+            absent=Count(
+                "attendances",
+                filter=Q(attendances__status="absent"),
+            ),
+            late=Count(
+                "attendances",
+                filter=Q(attendances__status="late"),
+            ),
         )
 
-        attendances = (
-            Attendance.objects
-            .filter(enrollment__student=student)
-            .select_related(
-                "enrollment",
-                "enrollment__section",
-                "enrollment__section__course",
-            )
-        )
+        total = attendance_summary["total"]
+        present = attendance_summary["present"]
 
-        grades = (
-            Grade.objects
-            .filter(enrollment__student=student)
-            .select_related(
-                "enrollment",
-                "enrollment__section",
-                "enrollment__section__course",
-                "exam",
-            )
+        attendance_rate = (
+            (present / total) * 100
+            if total
+            else 0
         )
 
         context["student"] = student
-        context["enrollments"] = enrollments
-        context["attendances"] = attendances
-        context["grades"] = grades
+        context["attendance_summary"] = attendance_summary
+        context["attendance_rate"] = round(attendance_rate, 2)
 
         return context
 

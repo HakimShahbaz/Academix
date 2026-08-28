@@ -57,6 +57,50 @@ Student Report
 
     </div>
 
+    <div class="card shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <h4 class="mb-3">
+            Attendance Summary
+        </h4>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <strong>Total Sessions</strong>
+                <p>{{ attendance_summary.total }}</p>
+            </div>
+
+            <div class="col-md-3">
+                <strong>Present</strong>
+                <p>{{ attendance_summary.present }}</p>
+            </div>
+
+            <div class="col-md-3">
+                <strong>Absent</strong>
+                <p>{{ attendance_summary.absent }}</p>
+            </div>
+
+            <div class="col-md-3">
+                <strong>Late</strong>
+                <p>{{ attendance_summary.late }}</p>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <strong>
+            Attendance Rate:
+        </strong>
+
+        {{ attendance_rate }}%
+
+    </div>
+
+</div>
+
     <div class="card">
 
         <div class="card-header">
