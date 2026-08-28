@@ -23,6 +23,17 @@ class StudentReportView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
             StudentProfile.objects.select_related("user"),
             pk=self.kwargs["pk"],
         )
+        grades = Grade.objects.select_related(
+            "exam",
+            "exam__section",
+            "exam__section__course",
+        ).filter(
+            enrollment__student=student,
+        )
+        enrollments = student.enrollments.select_related(
+            "section",
+            "section__course",
+        ).order_by("-enrolled_at")
 
         attendance_summary = student.enrollments.aggregate(
             total=Count("attendances"),
@@ -52,6 +63,8 @@ class StudentReportView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
         context["student"] = student
         context["attendance_summary"] = attendance_summary
         context["attendance_rate"] = round(attendance_rate, 2)
+        context["grades"] = grades
+        context["enrollments"] = enrollments
 
         return context
 
