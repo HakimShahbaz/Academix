@@ -68,11 +68,7 @@ class StudentReportView(LoginRequiredMixin, PermissionRequiredMixin, TemplateVie
 
         return context
 
-class TeacherReportView(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    TemplateView,
-):
+class TeacherReportView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = "profiles.view_teacherprofile"
     template_name = "reports/teacher/detail.html"
     raise_exception = True
@@ -85,22 +81,19 @@ class TeacherReportView(
             pk=self.kwargs["pk"],
         )
 
-        sections = (
-            Section.objects
-            .filter(teacher=teacher)
-            .select_related("course")
-        )
+        sections = teacher.sections.select_related(
+            "course",
+        ).prefetch_related(
+            "enrollments",
+            "exams",
+        ).order_by("-start_date")
 
         context["teacher"] = teacher
         context["sections"] = sections
 
         return context
 
-class EmployeeReportView(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    TemplateView,
-):
+class EmployeeReportView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = "profiles.view_employeeprofile"
     template_name = "reports/employee/detail.html"
     raise_exception = True
