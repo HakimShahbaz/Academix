@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Employee Report
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Employee Report</h2>
+
+        <a href="{% url 'profiles:employee_detail' employee.pk %}"
+           class="btn btn-secondary">
+            Back to Employee
+        </a>
+
+    </div>
+
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Employee Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <strong>Employee Number:</strong>
+                    {{ employee.employee_number }}
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Username:</strong>
+                    {{ employee.user.username }}
+                </div>
+
+                <div class="col-md-6 mt-2">
+                    <strong>First Name:</strong>
+                    {{ employee.user.first_name }}
+                </div>
+
+                <div class="col-md-6 mt-2">
+                    <strong>Last Name:</strong>
+                    {{ employee.user.last_name }}
+                </div>
+
+                <div class="col-md-6 mt-2">
+                    <strong>Department:</strong>
+                    {{ employee.department }}
+                </div>
+
+                <div class="col-md-6 mt-2">
+                    <strong>Hire Date:</strong>
+                    {{ employee.hire_date }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

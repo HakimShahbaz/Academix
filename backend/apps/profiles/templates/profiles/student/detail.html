@@ -29,6 +29,11 @@ Student Details
 
     </table>
 
+    <a href="{% url 'reports:student_report' student.pk %}"
+        class="btn btn-info">
+        View Report
+    </a>
+
     <a href="{% url 'profiles:student_update' student.pk %}"
        class="btn btn-warning">
         Edit

@@ -29,6 +29,11 @@ Teacher Details
 
     </table>
 
+    <a href="{% url 'reports:teacher_report' teacher.pk %}"
+        class="btn btn-info">
+        View Report
+    </a>
+
     <a href="{% url 'profiles:teacher_update' teacher.pk %}" class="btn btn-warning">
         Edit
     </a>

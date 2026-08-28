@@ -29,6 +29,11 @@ Employee Details
 
     </table>
 
+    <a href="{% url 'reports:employee_report' employee.pk %}"
+        class="btn btn-info">
+        View Report
+    </a>
+
     <a href="{% url 'profiles:employee_update' employee.pk %}"
        class="btn btn-warning">
         Edit
